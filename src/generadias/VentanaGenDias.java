@@ -5,17 +5,26 @@
  */
 package generadias;
 
+import java.util.Random;
+
 /**
  *
  * @author Ignacio
  */
 public class VentanaGenDias extends javax.swing.JFrame {
 
+    private static final int NUM_DIAS = 7;
+    private static final String[] DIAS_SEMANA = {"Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"};
+    private Random generadorNum = new Random();
+    
     /**
      * Creates new form VentanaGenDias
      */
     public VentanaGenDias() {
         initComponents();
+        
+        //Centramos la ventana
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -27,21 +36,68 @@ public class VentanaGenDias extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTADiasAleatorios = new javax.swing.JTextArea();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Genera Días");
+
+        jButton1.setText("Generar días");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jTADiasAleatorios.setColumns(20);
+        jTADiasAleatorios.setRows(5);
+        jScrollPane1.setViewportView(jTADiasAleatorios);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        int antDia = 0;
+        int newDia = 0;
+        jTADiasAleatorios.setText("");
+
+        try {
+            //Generamos los Numeros Aleatorios Definidos en 'numFilas'
+            while (newDia >= antDia) {
+                //Actualizamos el Dia Anterior
+                antDia = newDia;
+
+                //Generamos un Dia Aleatorio
+                newDia = generadorNum.nextInt(NUM_DIAS);
+                jTADiasAleatorios.append(DIAS_SEMANA[newDia] + "\n");
+            }
+        } catch (Exception ex) {
+            jTADiasAleatorios.append("ERROR DIA\n");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +135,8 @@ public class VentanaGenDias extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTADiasAleatorios;
     // End of variables declaration//GEN-END:variables
 }
